@@ -10,3 +10,11 @@ services:
       - ./services/api/src:/app/src
     environment:
       - NODE_ENV=development
+
+  worker:
+    build:
+      context: ./services/worker
+    volumes:
+      - ./services/worker/src:/app/src
+    environment:
+      - NODE_ENV=development

@@ -1,7 +1,7 @@
 ```markdown
-# Community Safety Backup (Working Title)
+# WeWitness
 
-A community-first safety app that helps people **securely back up** important video evidence in real time—so footage remains available even if a phone is stolen, broken, or the recording is forcibly deleted.
+A people-first safety app that helps you **securely back up** important video evidence in real time—so footage remains available even if a phone is stolen, broken, or the recording is forcibly deleted.
 
 > **Design principle:** Backup first. Sharing is always user-controlled. No public “nearby videos” feed.
 
@@ -15,14 +15,14 @@ When something unsafe happens in public, the most important evidence is often re
 - app crashes or poor connectivity,
 - accidental loss.
 
-This app focuses on **instant, encrypted backup** while recording, with optional **incident-based** community witness contributions.
+WeWitness focuses on **instant, encrypted backup** while recording, with optional **incident-based** community witness contributions—without enabling stalking, doxxing, or public surveillance.
 
 ---
 
 ## What it does
 
 ### 1) Personal Safety Vault (Default)
-- Records video and **uploads encrypted chunks** continuously.
+- Records video and **uploads encrypted chunks** continuously (e.g., every 1–3 seconds).
 - Video can be recovered even if the phone is taken or destroyed.
 - Only the recorder (and explicitly shared recipients) can view.
 
@@ -130,80 +130,77 @@ This project is explicitly designed to avoid becoming a surveillance or stalking
 
 ---
 
-## Repository Structure (Proposed)
+## Repository Structure (Planned)
+
+> This repo is intended to be a monorepo once code lands.
 
 ```
 
 /
 ├─ apps/
-│  ├─ mobile/                 # React Native or Flutter app
-│  └─ admin/                  # Optional moderation/admin portal
+│  └─ mobile/                 # React Native or Flutter app
 ├─ services/
 │  ├─ api/                    # REST/GraphQL API
-│  ├─ upload/                 # Chunked upload + resumable sessions
-│  └─ worker/                 # Background jobs (retention, exports, receipts)
+│  └─ worker/                 # Background jobs (exports, retention, receipts)
 ├─ infra/
-│  ├─ terraform/              # Infrastructure as code
-│  └─ k8s/                    # Optional Kubernetes manifests
+│  └─ terraform/              # Infrastructure as code
 ├─ docs/
-│  ├─ threat-model.md
 │  ├─ privacy.md
-│  └─ prd.md
+│  ├─ data_retention.md
+│  ├─ threat_model.md
+│  ├─ law_enforcement_requests.md
+│  ├─ misuse_policy.md
+│  └─ architecture.md
 └─ README.md
 
 ```
 
 ---
 
-## Threat Model (Summary)
+## Getting Started (Dev)
 
-Primary threats we defend against:
-- phone theft/destruction during/after recording
-- forced deletion
-- unauthorized viewing by server operators
-- harassment via location-based browsing
-- mass spam uploads / brigading
+> Coming soon — initial skeleton will include the mobile app + API + local dev setup.
 
-Key mitigations:
-- encrypted, chunked uploads
-- no public feed, incident-only contributions
-- coarse location and time windows
-- rate limits + verified accounts + reporting tools
-
-See: `docs/threat-model.md`
+Planned entry points:
+- `apps/mobile/README.md` — mobile setup
+- `services/api/README.md` — backend setup
+- `docs/architecture.md` — encryption + upload flow
 
 ---
 
-## Roadmap
+## Project Values
 
-- [ ] MVP: Vault recording + encrypted backup + recovery
-- [ ] Trusted Contacts sharing
-- [ ] Export and evidence receipt logs
-- [ ] Incident Beacon beta
-- [ ] Auto-blur tools for shared exports
-- [ ] Community verification + reputation signals
-- [ ] External security review
+WeWitness exists to help ordinary people preserve their own recordings and stay safe.
+It is not intended for harassment, doxxing, vigilantism, or creating public surveillance systems.
+
+- **Privacy by default**
+- **User-owned evidence**
+- **Minimal data collection**
+- **Safety over virality**
+- **Transparency over secrecy**
 
 ---
 
 ## Contributing
 
-Contributions are welcome—especially around:
-- mobile background recording/upload reliability,
-- cryptography review,
+Contributions are welcome, especially around:
+- background recording/upload reliability,
+- encryption/key-handling review,
 - abuse prevention + privacy design,
-- UX for “panic mode” workflows.
+- incident workflows and UX.
 
-Please open an issue describing what you want to work on.
+See `CONTRIBUTING.md` and `SECURITY.md`.
 
 ---
 
 ## Disclaimer
 
-This app is intended to improve personal safety and preserve user-owned evidence.  
-It is **not** designed for surveillance, stalking, or public doxxing. Misuse will result in bans and potential legal action.
+WeWitness is intended to improve personal and community safety and preserve user-owned evidence.
 
-Recording laws (especially audio) vary by location. Users are responsible for complying with local laws.
+Recording laws (especially audio) vary by jurisdiction. Users are responsible for complying with local laws.
+
+This project does not provide legal advice and cannot guarantee evidentiary admissibility.
+Integrity features may help support authenticity and chain-of-custody workflows.
 
 ---
 

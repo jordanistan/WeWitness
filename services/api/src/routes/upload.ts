@@ -1,26 +1,14 @@
 import { Router, Response } from 'express';
 import multer from 'multer';
 import path from 'path';
-import fs from 'fs';
+import { PutObjectCommand } from '@aws-sdk/client-s3';
+import s3Client from '../lib/s3';
 import pool from '../lib/database';
 import { authenticateToken, AuthenticatedRequest } from '../middleware/auth';
 
 const router = Router();
 
-const uploadDir = path.join(__dirname, '..', '..', 'uploads');
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-}
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, uploadDir);
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
-  }
-});
+const storage = multer.memoryStorage();
 
 const upload = multer({ 
   storage: storage,
@@ -47,17 +35,28 @@ router.post('/', authenticateToken, upload.single('video'), async (req: Authenti
   }
 
   const { title } = req.body;
-  const storagePath = req.file.path;
+  const file = req.file;
+  const bucketName = process.env.S3_BUCKET!;
+  const objectKey = `${userId}/${Date.now()}-${file.originalname}`;
+
+  const uploadParams = {
+    Bucket: bucketName,
+    Key: objectKey,
+    Body: file.buffer,
+    ContentType: file.mimetype,
+  };
 
   try {
+    await s3Client.send(new PutObjectCommand(uploadParams));
+
     const newVideo = await pool.query(
       'INSERT INTO videos (user_id, title, storage_path, status) VALUES ($1, $2, $3, $4) RETURNING *',
-      [userId, title, storagePath, 'completed']
+      [userId, title, objectKey, 'completed']
     );
 
     res.status(201).json(newVideo.rows[0]);
   } catch (error) {
-    console.error('Error creating video record:', error);
+    console.error('Error processing upload:', error);
     res.status(500).send({ message: 'Error processing upload.' });
   }
 });

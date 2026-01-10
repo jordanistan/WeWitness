@@ -1,4 +1,8 @@
 import express, { Request, Response } from 'express';
+import { connectToDB } from './lib/database';
+import './lib/redis';
+
+connectToDB();
 
 const app = express();
 const port = process.env.PORT || 3000;

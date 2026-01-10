@@ -1,4 +1,9 @@
+import { connectToDB } from './lib/database';
+import './lib/redis';
+
 console.log('Worker process started.');
+
+connectToDB();
 
 function main() {
   // Placeholder for background job processing (e.g., from a queue)

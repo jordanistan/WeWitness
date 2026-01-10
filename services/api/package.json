@@ -17,5 +17,9 @@
     "@types/node": "^25.0.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "ioredis": "^5.9.1",
+    "pg": "^8.16.3"
   }
 }

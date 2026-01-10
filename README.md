@@ -1,5 +1,7 @@
-```markdown
-# WeWitness
+<div align="center">
+  <img src="./docs/assets/logo.png" alt="WeWitness Logo" width="150"/>
+  <h1>WeWitness</h1>
+</div>
 
 A people-first safety app that helps you **securely back up** important video evidence in real time—so footage remains available even if a phone is stolen, broken, or the recording is forcibly deleted.
 
@@ -135,7 +137,6 @@ This project is explicitly designed to avoid becoming a surveillance or stalking
 > This repo is intended to be a monorepo once code lands.
 
 ```
-
 /
 ├─ apps/
 │  └─ mobile/                 # React Native or Flutter app
@@ -152,7 +153,6 @@ This project is explicitly designed to avoid becoming a surveillance or stalking
 │  ├─ misuse_policy.md
 │  └─ architecture.md
 └─ README.md
-
 ```
 
 ---
@@ -207,5 +207,8 @@ Integrity features may help support authenticity and chain-of-custody workflows.
 ## License
 
 TBD (MIT / Apache-2.0 recommended for open source, or proprietary if you plan to commercialize).
-```
 
+---
+<p align="center">
+  A project by <a href="https://github.com/jordanistan">jordanistan</a>.
+</p>

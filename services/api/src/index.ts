@@ -3,6 +3,7 @@ import { connectToDB } from './lib/database';
 import './lib/redis';
 import uploadRouter from './routes/upload';
 import authRouter from './routes/auth';
+import videosRouter from './routes/videos';
 
 connectToDB();
 
@@ -17,6 +18,7 @@ app.get('/', (req: Request, res: Response) => {
 
 app.use('/upload', uploadRouter);
 app.use('/auth', authRouter);
+app.use('/videos', videosRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

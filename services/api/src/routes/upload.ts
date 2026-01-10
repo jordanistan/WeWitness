@@ -1,7 +1,9 @@
-import { Router, Request, Response } from 'express';
+import { Router, Response } from 'express';
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
+import pool from '../lib/database';
+import { authenticateToken, AuthenticatedRequest } from '../middleware/auth';
 
 const router = Router();
 
@@ -34,19 +36,30 @@ const upload = multer({
   }
 });
 
-router.post('/', upload.single('video'), (req: Request, res: Response) => {
+router.post('/', authenticateToken, upload.single('video'), async (req: AuthenticatedRequest, res: Response) => {
   if (!req.file) {
     return res.status(400).send({ message: 'Please upload a file.' });
   }
-  
-  // Placeholder for database and Redis logic
-  console.log(`Received file: ${req.file.filename}`);
-  console.log(`Body:`, req.body);
 
-  res.status(200).send({ 
-    message: 'Chunk received successfully.',
-    file: req.file.filename
-  });
+  const userId = req.user?.userId;
+  if (!userId) {
+    return res.status(403).send({ message: 'User not authenticated.'});
+  }
+
+  const { title } = req.body;
+  const storagePath = req.file.path;
+
+  try {
+    const newVideo = await pool.query(
+      'INSERT INTO videos (user_id, title, storage_path, status) VALUES ($1, $2, $3, $4) RETURNING *',
+      [userId, title, storagePath, 'completed']
+    );
+
+    res.status(201).json(newVideo.rows[0]);
+  } catch (error) {
+    console.error('Error creating video record:', error);
+    res.status(500).send({ message: 'Error processing upload.' });
+  }
 });
 
 export default router;

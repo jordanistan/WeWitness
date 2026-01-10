@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import { connectToDB } from './lib/database';
 import './lib/redis';
 import uploadRouter from './routes/upload';
+import authRouter from './routes/auth';
 
 connectToDB();
 
@@ -15,6 +16,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.use('/upload', uploadRouter);
+app.use('/auth', authRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

@@ -14,7 +14,8 @@ const RegisterScreen = ({ navigation }: RegisterScreenProps) => {
       await api.post('/auth/register', { email, password });
       const response = await api.post('/auth/login', { email, password });
       setToken(response.data.token);
-    } catch (error) {
+        } catch {
+
       Alert.alert('Registration Failed', 'An error occurred. Please try again.');
     }
   };

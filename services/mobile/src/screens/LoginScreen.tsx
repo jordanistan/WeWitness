@@ -13,7 +13,8 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
     try {
       const response = await api.post('/auth/login', { email, password });
       setToken(response.data.token);
-    } catch (error) {
+        } catch {
+
       Alert.alert('Login Failed', 'Please check your credentials and try again.');
     }
   };

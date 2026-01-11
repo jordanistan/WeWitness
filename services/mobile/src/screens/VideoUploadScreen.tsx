@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, Button, StyleSheet, Alert, ActivityIndicator, Image } from 'react-native';
+import { View, Text, Button, StyleSheet, Alert, ActivityIndicator } from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
 import api from '../api/api';
 import { AuthContext } from '../state/AuthContext';

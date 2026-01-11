@@ -6,6 +6,9 @@ import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import HomeScreen from '../screens/HomeScreen';
 import VideoUploadScreen from '../screens/VideoUploadScreen';
+import IncidentListScreen from '../screens/IncidentListScreen';
+import IncidentDetailScreen from '../screens/IncidentDetailScreen';
+import CreateIncidentScreen from '../screens/CreateIncidentScreen';
 import { AuthContext } from '../state/AuthContext';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -20,6 +23,9 @@ const AppNavigator = () => {
                     <>
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="VideoUpload" component={VideoUploadScreen} />
+            <Stack.Screen name="IncidentList" component={IncidentListScreen} />
+            <Stack.Screen name="IncidentDetail" component={IncidentDetailScreen} />
+            <Stack.Screen name="CreateIncident" component={CreateIncidentScreen} />
           </>
         ) : (
           <>

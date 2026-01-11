@@ -11,7 +11,7 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
       <Text style={styles.title}>Welcome!</Text>
       <View style={styles.buttonContainer}>
         <Button title="Upload Video" onPress={() => navigation.navigate('VideoUpload')} />
-        <Button title="Manage Incidents" onPress={() => { /* TODO: Navigate to Incident Management */ }} />
+        <Button title="Manage Incidents" onPress={() => navigation.navigate('IncidentList')} />
         <Button title="Log Out" onPress={() => setToken(null)} />
       </View>
     </View>

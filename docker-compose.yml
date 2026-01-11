@@ -86,9 +86,13 @@ services:
     volumes:
       - ./services/mobile:/app
       - /app/node_modules
+      - ~/.android:/root/.android
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     environment:
       - NODE_ENV=development
       - API_URL=http://api:3000
+      - ADB_SERVER_SOCKET=tcp:host.docker.internal:5037
     depends_on:
       - api
 

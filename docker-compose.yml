@@ -78,6 +78,20 @@ services:
       - MINIO_ROOT_PASSWORD=minioadmin
     command: server /data --console-address ":9001"
 
+  mobile:
+    build:
+      context: ./services/mobile
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./services/mobile:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - API_URL=http://api:3000
+    depends_on:
+      - api
+
 volumes:
   postgres_data:
   minio_data:

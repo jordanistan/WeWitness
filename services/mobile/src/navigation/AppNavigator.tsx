@@ -4,7 +4,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from './types';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
-import HomeScreen from '../screens/HomeScreen'; // Placeholder for the main app screen
+import HomeScreen from '../screens/HomeScreen';
+import VideoUploadScreen from '../screens/VideoUploadScreen';
 import { AuthContext } from '../state/AuthContext';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -16,7 +17,10 @@ const AppNavigator = () => {
     <NavigationContainer>
       <Stack.Navigator>
         {token ? (
-          <Stack.Screen name="Home" component={HomeScreen} />
+                    <>
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="VideoUpload" component={VideoUploadScreen} />
+          </>
         ) : (
           <>
             <Stack.Screen name="Login" component={LoginScreen} />
